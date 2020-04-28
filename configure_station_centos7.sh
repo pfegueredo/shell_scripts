@@ -8,8 +8,16 @@ echo "Criando diretório para download de programas"
 mkdir /tmp/download
 cd /tmp/download
 
-#Instalar um repositorio que permite instalar aplicativos, entre eles o VLC:
+#Instalar repositorios:
 yum -y install http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
+
+yum install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+sed -i 's/enabled=0/enabled=1/g' /etc/yum.repos.d/remi.repo
+
+wget https://ftp.tu-chemnitz.de/pub/linux/dag/redhat/el7/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.3-1.el7.rf.x86_64.rpm
+yum -y localinstall ./rpmforge-release-0.5.3-1.el7.rf.x86_64.rpm
+
+yum -y install epel-release
 
 #Instalar suporte ao VirtualBox. Baixar o executável do site.
 wget https://www.virtualbox.org/download/oracle_vbox.asc
@@ -24,8 +32,10 @@ mv Oracle_VM_VirtualBox_Ext$ /tmp
 #Instlar o nmap, vlc
 yum -y install nmap vlc libdvdcss gstreamer{,1}-plugins-ugly gstreamer-plugins-bad-nonfree gstreamer1-plugins-bad-freeworld
 
-#Instalar suporte a leitura e escrita em discos NTFS
-yum -y install epel-release ntfs-3g
+ 
+
+#Instalar suporte a leitura e escrita em discos ntfs
+yum -y install ntfs-3g
 
 #Instalar cliente de e-mail
 yum -y install thunderbird
@@ -89,4 +99,16 @@ yum -y install nikto
 
 yum -y install ftp
 
+yum -y  install xfreerdp
 
+#Dependencias para instalar o overgrive
+#yum -y install python3-rpm-macros
+#yum -y install python-rpm-macros
+#yum -y install python3-devel
+#yum -y install python36-httplib2
+
+#Baixar e Istalar o crunch - Gerador de wordlist
+wget https://forensics.cert.org/centos/cert/7/x86_64/crunch-3.6-1.el7.x86_64.rpm
+yum localinstall crunch-3.6-1.el7.x86_64.rpm
+
+yum -y install john
